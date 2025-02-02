@@ -18,6 +18,10 @@
 #define _LCD_TYPE 1
 #include <LCD_1602_RUS_ALL.h>
 
+#ifndef LED_BUILTIN
+#define LED_BUILTIN 2
+#endif
+
 LCD_1602_RUS lcd(0x27, 16, 2);
 
 int unilen(const char *s) {
@@ -37,6 +41,7 @@ void tCountCallback() {
   lcd.setCursor(16 - len0 - String(cnt).length(), 1);
   lcd.print(label);
   lcd.print(cnt++, DEC);
+  digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
 }
 
 Task tCount(1000, TASK_FOREVER, &tCountCallback);
@@ -73,6 +78,8 @@ void setup() {
   BLEDevice::startAdvertising();
   Serial.println("Characteristic defined! Now you can read it in your phone!");
 
+  pinMode(LED_BUILTIN, OUTPUT);
+
   lcd.init(); // For ESP32 use LCD_1602_RUS_ALL fork.
 
   lcd.backlight();
@@ -83,6 +90,4 @@ void setup() {
   tCount.enable();
 }
 
-void loop() {
-  ts.execute();
-}
+void loop() { ts.execute(); }

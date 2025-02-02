@@ -9,6 +9,12 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 
+// Display mode: 1 - I2C; 2 - 10-pin.
+#define _LCD_TYPE 1
+#include <LCD_1602_RUS_ALL.h>
+
+LCD_1602_RUS lcd(0x27, 16, 2);
+
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
 
@@ -19,7 +25,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Starting BLE work!");
 
-  BLEDevice::init("Long name works now");
+  BLEDevice::init("Kitty's Sandbox");
   BLEServer *pServer = BLEDevice::createServer();
   BLEService *pService = pServer->createService(SERVICE_UUID);
   BLECharacteristic *pCharacteristic = pService->createCharacteristic(
@@ -38,6 +44,13 @@ void setup() {
   pAdvertising->setMinPreferred(0x12);
   BLEDevice::startAdvertising();
   Serial.println("Characteristic defined! Now you can read it in your phone!");
+
+  lcd.init(); // For the Blue Pill use LCD_1602_RUS_ALL fork.
+
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print(1, DEC);
+  lcd.print(". Йа креведко!");
 }
 
 void loop() {

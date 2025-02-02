@@ -9,11 +9,39 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 
+#define _TASK_SCHEDULING_OPTIONS
+// #define _TASK_TIMECRITICAL
+// #define _TASK_SLEEP_ON_IDLE_RUN
+#include <TaskScheduler.h>
+
 // Display mode: 1 - I2C; 2 - 10-pin.
 #define _LCD_TYPE 1
 #include <LCD_1602_RUS_ALL.h>
 
 LCD_1602_RUS lcd(0x27, 16, 2);
+
+int unilen(const char *s) {
+  int len = 0;
+  while (*s)
+    len += (*s++ & 0xc0) != 0x80;
+  return len;
+}
+
+void tCountCallback() {
+  static int cnt = 1;
+  static char label_odd[] = "Тип.. ";
+  static char label_even[] = "Топ.. ";
+  static int len0 = unilen(label_odd);
+  char *label = cnt % 2 == 0 ? label_even : label_odd;
+
+  lcd.setCursor(16 - len0 - String(cnt).length(), 1);
+  lcd.print(label);
+  lcd.print(cnt++, DEC);
+}
+
+Task tCount(1000, TASK_FOREVER, &tCountCallback);
+
+Scheduler ts;
 
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/
@@ -45,15 +73,16 @@ void setup() {
   BLEDevice::startAdvertising();
   Serial.println("Characteristic defined! Now you can read it in your phone!");
 
-  lcd.init(); // For the Blue Pill use LCD_1602_RUS_ALL fork.
+  lcd.init(); // For ESP32 use LCD_1602_RUS_ALL fork.
 
   lcd.backlight();
   lcd.setCursor(0, 0);
-  lcd.print(1, DEC);
-  lcd.print(". Йа креведко!");
+
+  ts.init();
+  ts.addTask(tCount);
+  tCount.enable();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  delay(2000);
+  ts.execute();
 }

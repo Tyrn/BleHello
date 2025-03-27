@@ -1,5 +1,9 @@
 # An Arduino sandbox for ESP32 Bluetooth BLE
 
+## Boards
+
+_ESP32 Dev Module_
+
 ## Libraries
 
 By default, all the libraries are installed in the `~/Arduino/libraries`
@@ -13,6 +17,12 @@ Library Manager, as well as manually.
 
 ```
 git clone https://github.com/Tyrn/LCD_1602_RUS_ALL ~/Arduino/libraries/LCD_1602_RUS_ALL
+```
+
+or, if it's all yours
+
+```
+git clone git@github.com:Tyrn/LCD_1602_RUS_ALL.git ~/Arduino/libraries/LCD_1602_RUS_ALL
 ```
 
 - _EasyButton_ by Evert Arias

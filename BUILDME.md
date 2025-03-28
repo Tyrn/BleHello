@@ -8,7 +8,7 @@ _ESP32 Dev Module_
 
 By default, all the libraries are installed in the `~/Arduino/libraries`
 directory via the
-[Arduino IDE](https://github.com/Tyrn/arch-chronicle/blob/master/Usage/Arduino.md)
+[Arduino IDE](https://github.com/Tyrn/dotfiles/blob/main/messy-notes/Arduino.md)
 Library Manager, as well as manually.
 
 - _TaskScheduler_ by Anatoli Arkhipenko

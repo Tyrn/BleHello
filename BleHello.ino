@@ -31,6 +31,10 @@ int unilen(const char *s) {
   return len;
 }
 
+int led_pin_1 = 4;
+int led_pin_2 = 0;
+// int led_pin_3 = 2;     // On some ESP32 pin 2 is an internal LED
+
 void tCountCallback() {
   static int cnt = 1;
   static char label_odd[] = "Тип.. ";
@@ -42,6 +46,8 @@ void tCountCallback() {
   lcd.print(label);
   lcd.print(cnt++, DEC);
   digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
+  digitalWrite(led_pin_1, !digitalRead(led_pin_1));
+  digitalWrite(led_pin_2, !digitalRead(led_pin_2));
 }
 
 Task tCount(1000, TASK_FOREVER, &tCountCallback);
@@ -79,6 +85,10 @@ void setup() {
   Serial.println("Characteristic defined! Now you can read it in your phone!");
 
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(led_pin_1, OUTPUT);
+  pinMode(led_pin_2, OUTPUT);
+  digitalWrite(led_pin_1, HIGH);
+  digitalWrite(led_pin_2, HIGH);
 
   lcd.init(); // For ESP32 use LCD_1602_RUS_ALL fork.
 

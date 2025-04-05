@@ -32,5 +32,5 @@ git clone git@github.com:Tyrn/LCD_1602_RUS_ALL.git ~/Arduino/libraries/LCD_1602_
 - Via Clang
 
 ```
-$ clang-format -i Farola.ino
+clang-format -i **/*.(c|cpp|h|hh|hpp|ino)
 ```

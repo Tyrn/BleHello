@@ -6,3 +6,9 @@ int Lcd1602UniPrint::len(const char *s) {
     len += (*s++ & 0xc0) != 0x80;
   return len;
 }
+
+void Lcd1602UniPrint::print_dec_lr(const char *label, int value) {
+  d.setCursor(16 - len(label) - String(value).length(), 1);
+  d.print(label);
+  d.print(value, DEC);
+}

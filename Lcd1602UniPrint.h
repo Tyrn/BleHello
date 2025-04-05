@@ -13,6 +13,9 @@ public:
   // The length of a Unicode string in characters.
   static int len(const char *s);
 
+  // Print a decimal number in the lower right corner.
+  void print_dec_lr(const char *label, int value);
+
   LCD_1602_RUS d;
 };
 

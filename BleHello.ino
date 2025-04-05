@@ -28,14 +28,7 @@ int led_pin_2 = 0;
 
 void tCountCallback() {
   static int cnt = 1;
-  static char label_odd[] = "Тип.. ";
-  static char label_even[] = "Топ.. ";
-  static int len0 = lcd.len(label_odd);
-  char *label = cnt % 2 == 0 ? label_even : label_odd;
-
-  lcd.d.setCursor(16 - len0 - String(cnt).length(), 1);
-  lcd.d.print(label);
-  lcd.d.print(cnt++, DEC);
+  lcd.print_dec_lr(cnt % 2 == 0 ? "Топ.. " : "Тип.. ", cnt++);
   digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
   digitalWrite(led_pin_1, !digitalRead(led_pin_1));
   digitalWrite(led_pin_2, !digitalRead(led_pin_2));

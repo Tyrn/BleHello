@@ -14,22 +14,13 @@
 // #define _TASK_SLEEP_ON_IDLE_RUN
 #include <TaskScheduler.h>
 
-// Display mode: 1 - I2C; 2 - 10-pin.
-#define _LCD_TYPE 1
-#include <LCD_1602_RUS_ALL.h>
+#include <Lcd1602UniPrint.h>
 
 #ifndef LED_BUILTIN
 #define LED_BUILTIN 2
 #endif
 
 LCD_1602_RUS lcd(0x27, 16, 2);
-
-int unilen(const char *s) {
-  int len = 0;
-  while (*s)
-    len += (*s++ & 0xc0) != 0x80;
-  return len;
-}
 
 int led_pin_1 = 4;
 int led_pin_2 = 0;
@@ -39,7 +30,7 @@ void tCountCallback() {
   static int cnt = 1;
   static char label_odd[] = "Тип.. ";
   static char label_even[] = "Топ.. ";
-  static int len0 = unilen(label_odd);
+  static int len0 = Lcd1602UniPrint::len(label_odd);
   char *label = cnt % 2 == 0 ? label_even : label_odd;
 
   lcd.setCursor(16 - len0 - String(cnt).length(), 1);

@@ -12,3 +12,21 @@ void Lcd1602UniPrint::print_dec_lr(const char *label, int value) {
   d.print(label);
   d.print(value, DEC);
 }
+
+void Lcd1602UniPrint::print_dec_ur(const char *label, int value) {
+  d.setCursor(16 - len(label) - String(value).length(), 0);
+  d.print(label);
+  d.print(value, DEC);
+}
+
+void Lcd1602UniPrint::print_dec_ll(const char *label, int value) {
+  d.setCursor(0, 1);
+  d.print(label);
+  d.print(value, DEC);
+}
+
+void Lcd1602UniPrint::print_dec_ul(const char *label, int value) {
+  d.setCursor(0, 0);
+  d.print(label);
+  d.print(value, DEC);
+}

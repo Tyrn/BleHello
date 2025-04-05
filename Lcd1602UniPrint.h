@@ -13,19 +13,20 @@ public:
   // The length of a Unicode string in characters.
   static int len(const char *s);
 
-  // Print a decimal number in the lower right corner.
+  // Print a signed decimal number in the lower right corner.
   void print_dec_lr(const char *label, int value);
 
-  // Print a decimal number in the upper right corner.
+  // Print a signed decimal number in the upper right corner.
   void print_dec_ur(const char *label, int value);
 
-  // Print a decimal number in the lower left corner.
+  // Print a signed decimal number in the lower left corner.
   void print_dec_ll(const char *label, int value);
 
-  // Print a decimal number in the upper left corner.
+  // Print a signed decimal number in the upper left corner.
   void print_dec_ul(const char *label, int value);
 
   LCD_1602_RUS d;
+private:
 };
 
 #endif

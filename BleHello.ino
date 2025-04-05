@@ -28,7 +28,7 @@ int led_pin_2 = 0;
 
 void tCountCallback() {
   static int cnt = 1;
-  lcd.print_dec_lr(cnt % 2 == 0 ? "Топ.. " : "Тип.. ", cnt++);
+  lcd.print_dec_lr(cnt % 2 == 0 ? "То~ " : "Ти~ ", cnt++);
   digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
   digitalWrite(led_pin_1, !digitalRead(led_pin_1));
   digitalWrite(led_pin_2, !digitalRead(led_pin_2));

@@ -7,10 +7,13 @@
 
 class Lcd1602UniPrint {
 public:
-  Lcd1602UniPrint(uint8_t lcd_Addr, uint8_t lcd_cols, uint8_t lcd_rows) : lcd(lcd_Addr, lcd_cols, lcd_rows) {}
+  Lcd1602UniPrint(uint8_t lcd_Addr = 0x27, uint8_t lcd_cols = 16, uint8_t lcd_rows = 2)
+    : d(lcd_Addr, lcd_cols, lcd_rows) {}
+  
+  // The length of a Unicode string in characters.
   static int len(const char *s);
-private:
-  LCD_1602_RUS lcd;
+
+  LCD_1602_RUS d;
 };
 
 #endif

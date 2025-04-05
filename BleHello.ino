@@ -20,7 +20,7 @@
 #define LED_BUILTIN 2
 #endif
 
-LCD_1602_RUS lcd(0x27, 16, 2);
+Lcd1602UniPrint lcd;
 
 int led_pin_1 = 4;
 int led_pin_2 = 0;
@@ -30,12 +30,12 @@ void tCountCallback() {
   static int cnt = 1;
   static char label_odd[] = "Тип.. ";
   static char label_even[] = "Топ.. ";
-  static int len0 = Lcd1602UniPrint::len(label_odd);
+  static int len0 = lcd.len(label_odd);
   char *label = cnt % 2 == 0 ? label_even : label_odd;
 
-  lcd.setCursor(16 - len0 - String(cnt).length(), 1);
-  lcd.print(label);
-  lcd.print(cnt++, DEC);
+  lcd.d.setCursor(16 - len0 - String(cnt).length(), 1);
+  lcd.d.print(label);
+  lcd.d.print(cnt++, DEC);
   digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
   digitalWrite(led_pin_1, !digitalRead(led_pin_1));
   digitalWrite(led_pin_2, !digitalRead(led_pin_2));
@@ -81,10 +81,10 @@ void setup() {
   digitalWrite(led_pin_1, HIGH);
   digitalWrite(led_pin_2, HIGH);
 
-  lcd.init(); // For ESP32 use LCD_1602_RUS_ALL fork.
+  lcd.d.init(); // For ESP32 use LCD_1602_RUS_ALL fork.
 
-  lcd.backlight();
-  lcd.setCursor(0, 0);
+  lcd.d.backlight();
+  lcd.d.setCursor(0, 0);
 
   ts.init();
   ts.addTask(tCount);
